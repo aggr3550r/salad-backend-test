@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import make from '../services/make';
 
 export default class ApiRouter {
   router;
@@ -8,7 +9,7 @@ export default class ApiRouter {
   }
 
   addPattern(method, pattern, controller, ...mw) {
-    this.router[method](pattern, ...mw, make(controller));
+    this.router[method](pattern, ...mw, controller);
   }
 
   addIsAuthenticatedPattern(method, pattern, controller, ...mw) {

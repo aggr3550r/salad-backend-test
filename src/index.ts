@@ -12,7 +12,7 @@ process.on('unhandledException', (err) => {
   process.exit(1);
 });
 
-const PORT = configService.getPort() || '8000';
+const PORT = configService.getPort() || '8088';
 
 const log = logger.getLogger();
 
@@ -22,9 +22,7 @@ process.on('unhandledException', (err) => {
   process.exit(1);
 });
 
-container.register<IUserRepository>('UserRepository', {
-  useValue: new UserRepository(),
-});
+
 
 http.createServer(app).listen(PORT, () => {
   log.info(`HTTP Server started on port ${PORT}`);

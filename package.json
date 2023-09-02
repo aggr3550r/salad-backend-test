@@ -4,7 +4,10 @@
   "description": "A simple app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env NODE_ENV=development ts-node --files src",
+    "build": "tsc",
+    "start:dev": "npm run build && cross-env NODE_ENV=development nodemon dist",
+    "test": "jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",
@@ -41,6 +44,7 @@
     "@babel/core": "^7.22.11",
     "@babel/preset-env": "^7.22.14",
     "@babel/preset-modules": "^0.1.6",
+    "@types/cors": "^2.8.13",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/morgan": "^1.9.5",
     "@types/node": "^20.5.8",
