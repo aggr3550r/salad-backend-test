@@ -1,0 +1,47 @@
+{
+  "name": "salad-backend-test",
+  "version": "1.0.0",
+  "description": "A simple app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aggr3550r/salad-backend-test.git"
+  },
+  "author": "Victor Uche",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aggr3550r/salad-backend-test/issues"
+  },
+  "homepage": "https://github.com/aggr3550r/salad-backend-test#readme",
+  "dependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.5.8",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.10.0",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.9.1",
+    "tslint": "^6.1.3",
+    "typeorm": "^0.3.17",
+    "typescript": "^5.2.2",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.11",
+    "@babel/preset-env": "^7.22.14",
+    "@babel/preset-modules": "^0.1.6",
+    "@types/jsonwebtoken": "^9.0.2",
+    "cross-env": "^7.0.3"
+  }
+}
