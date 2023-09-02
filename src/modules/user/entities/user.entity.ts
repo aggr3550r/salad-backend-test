@@ -1,6 +1,7 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseModel } from '../../../models/base.model';
-import { UserRole } from '../../../enums/user-role.enum';
+import { UserType } from '../../../enums/user-type.enum';
+import { Review } from '../../review/entities/review.entity';
 
 @Entity('user')
 export class User extends BaseModel {
@@ -16,14 +17,11 @@ export class User extends BaseModel {
   @Column({
     nullable: false,
     type: 'enum',
-    enum: UserRole,
-    default: UserRole.USER,
+    enum: UserType,
+    default: UserType.USER,
   })
-  role: UserRole;
+  role: UserType;
 
-  //   @OneToMany(() => File, (file) => file.owner, { nullable: true })
-  //   files: File[];
-
-  //   @OneToMany(() => Folder, (folder) => folder.owner, { nullable: true })
-  //   folders: Folder[];
+  @OneToMany(() => Review, (review) => review.owner, { nullable: true })
+  reviews: Review[];
 }

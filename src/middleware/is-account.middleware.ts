@@ -1,5 +1,5 @@
 import { NextFunction } from 'express';
-import { UserRole } from '../enums/user-role.enum';
+import { UserRole } from '../enums/user-type.enum';
 
 module.exports =
   (...types: UserRole[]) =>
