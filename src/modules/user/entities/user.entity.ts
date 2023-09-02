@@ -2,26 +2,10 @@ import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseModel } from '../../../models/base.model';
 import { UserType } from '../../../enums/user-type.enum';
 import { Review } from '../../review/entities/review.entity';
+import { UserBaseModel } from '../../../models/user-base.model';
 
 @Entity('user')
-export class User extends BaseModel {
-  @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  full_name: string;
-
-  @Column({
-    nullable: false,
-    type: 'enum',
-    enum: UserType,
-    default: UserType.USER,
-  })
-  role: UserType;
-
+export class User extends UserBaseModel {
   @OneToMany(() => Review, (review) => review.owner, { nullable: true })
   reviews: Review[];
 }

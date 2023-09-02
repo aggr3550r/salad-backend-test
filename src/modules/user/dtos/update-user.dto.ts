@@ -8,7 +8,7 @@ export class UpdateUserDTO {
 
   @IsOptional()
   @IsString()
-  public full_name?: string;
+  public name?: string;
 
   @IsBoolean()
   @IsOptional()

@@ -2,11 +2,14 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
+  IsPositive,
   IsString,
+  MaxLength,
   MinLength,
 } from 'class-validator';
-import { UserType } from '../../../enums/user-type.enum';
+import { Gender } from '../../../enums/gender.enum';
 
 export class CreateUserDTO {
   @IsNotEmpty()
@@ -19,9 +22,19 @@ export class CreateUserDTO {
 
   @IsNotEmpty()
   @IsString()
-  public readonly full_name: string;
+  public readonly name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
+  public readonly age: number;
+
+  @IsNotEmpty()
+  @IsEnum(Gender)
+  public readonly gender: Gender;
 
   @IsOptional()
-  @IsEnum(UserType)
-  public role?: UserType = UserType.USER;
+  @IsString()
+  @MaxLength(200)
+  public readonly hometown?: string;
 }
