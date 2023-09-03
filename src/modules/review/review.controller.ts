@@ -18,7 +18,7 @@ export default class ReviewController {
 
       return new ResponseModel(
         HttpStatus.CREATED,
-        'Review Successfully created.',
+        'Review successfully created.',
         serviceResponse
       );
     } catch (error) {
