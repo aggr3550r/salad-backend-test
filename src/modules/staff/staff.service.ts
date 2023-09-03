@@ -1,6 +1,5 @@
 import { FindOneOptions, Repository, getRepository } from 'typeorm';
 import { Staff } from './entities/staff.entity';
-import UserService from '../user/user.service';
 import { IGenericAppService } from '../../interfaces/IGenericUserService';
 import { CreateStaffDTO } from './dtos/create-staff.dto';
 import logger from '../../utils/logger.util';
@@ -15,10 +14,7 @@ import { PageMetaDTO } from '../../paging/page-meta.dto';
 const log = logger.getLogger();
 
 export class StaffService implements IGenericAppService<Staff> {
-  constructor(
-    private staffRepository: Repository<Staff>,
-    private userService: UserService
-  ) {
+  constructor(private staffRepository: Repository<Staff>) {
     this.staffRepository = getRepository<Staff>(Staff);
   }
 

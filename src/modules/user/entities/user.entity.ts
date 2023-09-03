@@ -5,7 +5,7 @@ import { Page } from '../../page/entites/page.entity';
 
 @Entity('user')
 export class User extends UserBaseModel {
-  @OneToMany(() => Review, (review) => review.owner, { nullable: true })
+  @OneToMany(() => Review, (review) => review.submitter, { nullable: true })
   reviews: Review[];
 
   @ManyToOne(() => Page, (page) => page.users)

@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateReviewDTO {
   @IsNotEmpty()
@@ -10,4 +16,12 @@ export class CreateReviewDTO {
   @IsString()
   @MaxLength(200)
   summary: string;
+
+  @IsNotEmpty()
+  @IsString()
+  pageId: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  rating: number;
 }

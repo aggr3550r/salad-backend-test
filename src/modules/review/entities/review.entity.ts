@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseModel } from '../../../models/base.model';
 import { User } from '../../user/entities/user.entity';
 import { Page } from '../../page/entites/page.entity';
@@ -9,21 +9,22 @@ export class Review extends BaseModel {
   body: string;
 
   @ManyToOne(() => User, (owner) => owner.reviews)
-  owner: User;
+  @JoinColumn({ name: 'submitterId' })
+  submitter: User;
+
+  @Column()
+  submitterId: string;
 
   @ManyToOne(() => Page, (page) => page.reviews)
+  @JoinColumn({ name: 'pageId' })
   page: Page;
+
+  @Column()
+  pageId: string;
 
   @Column({ type: 'text', default: '' })
   summary: string;
 
   @Column({ type: 'float', nullable: false, default: 0.0 })
-  avg_rating: number;
-
-  @Column({ type: 'float', nullable: false, default: 0.0 })
-  total_rating_amount: number;
-
-  // number of times any review has been rated
-  @Column({ nullable: false, default: 0 })
-  total_rated_times: number;
+  rating: number;
 }

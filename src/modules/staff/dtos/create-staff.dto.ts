@@ -6,7 +6,7 @@ export class CreateStaffDTO extends CreateUserDTO {
   @IsNotEmpty()
   @IsString()
   @MaxLength(200)
-  public home_town?: string;
+  public home_town: string;
 
   @IsNotEmpty()
   @IsEnum(BloodType)

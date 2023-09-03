@@ -3,10 +3,8 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumber,
-  IsOptional,
   IsPositive,
   IsString,
-  MaxLength,
   MinLength,
 } from 'class-validator';
 import { Gender } from '../../../enums/gender.enum';

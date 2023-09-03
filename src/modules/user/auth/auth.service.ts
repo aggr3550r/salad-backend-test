@@ -52,17 +52,10 @@ export default class AuthService {
           user,
         },
       });
-
-      // return new ResponseModel(HttpStatus.OK, 'User successfully logged in', {
-      //   token,
-      //   data: {
-      //     user,
-      //   },
-      // });
     } catch (error) {
       log.error('createAndSendAuthToken() error', error);
       throw new AppError(
-        error?.message || 'Could not complete user signup.',
+        error?.message || 'Could not complete user signin.',
         error?.status || 400
       );
     }
@@ -71,10 +64,11 @@ export default class AuthService {
   async signup(data: CreateUserDTO) {
     try {
       let { password } = data;
+
       const encryptedPassword = await SecurityUtil.encryptPassword(password);
       Object.assign(data, { password: encryptedPassword });
 
-      return await this.userService.createUser(data);
+      return await this.userService.create(data);
     } catch (error) {
       log.error('signup() error', error);
       throw new AppError(
@@ -86,7 +80,7 @@ export default class AuthService {
 
   async login(data: LoginDTO) {
     try {
-      const user = await this.userService.findUserByEmail(data.email);
+      const user = await this.userService.findByEmail(data.email);
 
       if (!user) {
         throw new ResourceNotFoundException(
