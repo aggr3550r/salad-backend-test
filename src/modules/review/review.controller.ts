@@ -11,14 +11,14 @@ export default class ReviewController {
 
   async createReview(request: any) {
     try {
-      const { userId } = request.params;
+      const { id: userId } = request.auth;
       const data = request.body;
 
       const serviceResponse = await this.reviewService.create(data, userId);
 
       return new ResponseModel(
         HttpStatus.CREATED,
-        'Review successfully created.',
+        'Review uccessfully created.',
         serviceResponse
       );
     } catch (error) {
@@ -52,14 +52,15 @@ export default class ReviewController {
     }
   }
 
-  async delete(request: any) {
+  async deleteReview(request: any) {
     try {
-      const { id } = request.auth;
+      const { reviewId } = request.params;
 
-      await this.reviewService.delete(id);
+      const serviceResponse = await this.reviewService.delete(reviewId);
 
-      return new ResponseModel(HttpStatus.OK, 'User successfully deleted.', {
-        userId: id,
+      return new ResponseModel(HttpStatus.OK, 'Review successfully deleted.', {
+        reviewId,
+        serviceResponse,
       });
     } catch (error) {
       return new ResponseModel(

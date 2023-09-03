@@ -28,12 +28,13 @@ export default class UserController {
 
   async deleteUser(request: any) {
     try {
-      const { id } = request.auth;
+      const { userId } = request.params;
 
-      await this.userService.delete(id);
+      const serviceResponse = await this.userService.delete(userId);
 
       return new ResponseModel(HttpStatus.OK, 'User successfully deleted.', {
-        userId: id,
+        userId,
+        serviceResponse,
       });
     } catch (error) {
       return new ResponseModel(
@@ -46,9 +47,9 @@ export default class UserController {
 
   async getUser(request: any) {
     try {
-      const { id } = request.params;
+      const { userId } = request.params;
 
-      const user = await this.userService.getUserById(id);
+      const user = await this.userService.getUserById(userId);
 
       return new ResponseModel(HttpStatus.OK, SaladResponseMsg.SUCCESS, user);
     } catch (error) {

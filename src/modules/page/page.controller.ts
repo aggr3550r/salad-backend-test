@@ -18,6 +18,7 @@ export class PageController {
         serviceResponse
       );
     } catch (error) {
+      log.error('createPage() error', error);
       return new ResponseModel(
         error?.statusCode || HttpStatus.BAD_REQUEST,
         error?.message || SaladResponseMsg.FAILED,
@@ -39,6 +40,8 @@ export class PageController {
         serviceResponse
       );
     } catch (error) {
+      log.error('updatePage() error', error);
+
       return new ResponseModel(
         error?.statusCode || HttpStatus.BAD_REQUEST,
         error?.message || SaladResponseMsg.FAILED,
@@ -58,6 +61,8 @@ export class PageController {
         serviceResponse
       );
     } catch (error) {
+      log.error('deletePage() error', error);
+
       return new ResponseModel(
         error?.statusCode || HttpStatus.BAD_REQUEST,
         error?.message || SaladResponseMsg.FAILED,
@@ -77,6 +82,8 @@ export class PageController {
         serviceResponse
       );
     } catch (error) {
+      log.error('getAllPages() error', error);
+
       return new ResponseModel(
         error?.statusCode || HttpStatus.BAD_REQUEST,
         error?.message || SaladResponseMsg.FAILED,
@@ -96,6 +103,8 @@ export class PageController {
         serviceResponse
       );
     } catch (error) {
+      log.error('viewPageInfo() error', error);
+
       return new ResponseModel(
         error?.statusCode || HttpStatus.BAD_REQUEST,
         error?.message || SaladResponseMsg.FAILED,
@@ -117,6 +126,8 @@ export class PageController {
         serviceResponse
       );
     } catch (error) {
+      log.error('ratePage() error', error);
+
       return new ResponseModel(
         error?.statusCode || HttpStatus.BAD_REQUEST,
         error?.message || SaladResponseMsg.FAILED,
@@ -136,6 +147,8 @@ export class PageController {
         serviceResponse
       );
     } catch (error) {
+      log.error('likePage() error', error);
+
       return new ResponseModel(
         error?.statusCode || HttpStatus.BAD_REQUEST,
         error?.message || SaladResponseMsg.FAILED,

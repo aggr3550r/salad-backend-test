@@ -41,7 +41,7 @@ export class StaffController {
         serviceResponse
       );
     } catch (error) {
-      log.error('updateReview() error', error);
+      log.error('updateStaff() error', error);
       throw new ResponseModel(
         error?.statusCode || 400,
         error?.message || SaladResponseMsg.FAILED,
