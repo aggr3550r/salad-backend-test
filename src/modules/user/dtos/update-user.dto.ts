@@ -1,16 +1,27 @@
-import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
-import { UserType } from '../../../enums/user-type.enum';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
 export class UpdateUserDTO {
-  @IsOptional()
-  @IsEnum(UserType)
-  public role?: UserType;
-
   @IsOptional()
   @IsString()
   public name?: string;
 
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
+  public age?: number;
+
   @IsBoolean()
   @IsOptional()
   public is_active?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  public is_moderator?: boolean;
 }

@@ -11,15 +11,16 @@ import { PageDTO } from '../../paging/page.dto';
 import { UserAlreadyExistsException } from '../../exceptions/UserAlreadyExistsException';
 import { ResourceNotFoundException } from '../../exceptions/ResourceNotFound';
 import { SaladResponseMsg } from '../../enums/salad-response.enum';
+import { IGenericAppService } from '../../interfaces/IGenericUserService';
 
 const log = logger.getLogger();
 
-export default class UserService {
+export default class UserService implements IGenericAppService<User> {
   constructor(private userRepository: Repository<User>) {
     this.userRepository = getRepository<User>(User);
   }
 
-  async createUser(data: CreateUserDTO): Promise<User> {
+  async create(data: CreateUserDTO): Promise<User> {
     try {
       const options: FindOneOptions<User> = {
         where: {
@@ -45,9 +46,9 @@ export default class UserService {
     }
   }
 
-  async updateUser(id: string, data: UpdateUserDTO): Promise<User> {
+  async update(id: string, data: UpdateUserDTO): Promise<User> {
     try {
-      const user = await this.findUserById(id);
+      const user = await this.findById(id);
       Object.assign(user, data);
       return await this.userRepository.save(user);
     } catch (error) {
@@ -56,7 +57,7 @@ export default class UserService {
     }
   }
 
-  async findUserById(id: string): Promise<User> {
+  async findById(id: string): Promise<User> {
     try {
       const options: FindOneOptions<User> = {
         where: {
@@ -72,7 +73,7 @@ export default class UserService {
     }
   }
 
-  async findUserByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User> {
     try {
       const options: FindOneOptions<User> = {
         where: {
@@ -87,9 +88,9 @@ export default class UserService {
     }
   }
 
-  async deleteUser(id: string): Promise<boolean> {
+  async delete(id: string): Promise<boolean> {
     try {
-      const user = await this.findUserById(id);
+      const user = await this.findById(id);
       if (!user) {
         return false;
       }
@@ -110,7 +111,7 @@ export default class UserService {
 
   async getUserById(id: string): Promise<User> {
     try {
-      const user = await this.findUserById(id);
+      const user = await this.findById(id);
 
       if (!user)
         throw new ResourceNotFoundException("Couldn't find user with that id");
@@ -125,7 +126,7 @@ export default class UserService {
     }
   }
 
-  async getAllUsers(pageOptionsDTO: PageOptionsDTO): Promise<PageDTO<User>> {
+  async getAll(pageOptionsDTO: PageOptionsDTO): Promise<PageDTO<User>> {
     try {
       let [items, count] = await this.userRepository.findAndCount({
         where: {

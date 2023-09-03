@@ -33,8 +33,4 @@ export class CreateUserDTO {
   @IsEnum(Gender)
   public readonly gender: Gender;
 
-  @IsOptional()
-  @IsString()
-  @MaxLength(200)
-  public readonly hometown?: string;
 }

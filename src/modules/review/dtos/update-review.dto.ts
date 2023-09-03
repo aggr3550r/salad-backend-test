@@ -1,11 +1,13 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class UpdateReviewDTO {
   @IsOptional()
   @IsString()
-  title: string;
+  @MaxLength(300)
+  body: string;
 
   @IsOptional()
   @IsString()
-  content: string;
+  @MaxLength(200)
+  summary: string;
 }
