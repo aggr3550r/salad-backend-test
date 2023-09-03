@@ -24,6 +24,7 @@ export default class UserService implements IGenericAppService<User> {
     try {
       const options: FindOneOptions<User> = {
         where: {
+          name: data.name,
           email: data.email,
           is_active: true,
         },
@@ -31,7 +32,9 @@ export default class UserService implements IGenericAppService<User> {
       const userAlreadyExists = await this.userRepository.findOne(options);
 
       if (userAlreadyExists) {
-        throw new UserAlreadyExistsException();
+        throw new UserAlreadyExistsException(
+          'Username or Email already taken. Choose another.'
+        );
       }
 
       const newUser = this.userRepository.create(data);

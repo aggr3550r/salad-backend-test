@@ -3,6 +3,13 @@ import { BaseModel } from '../../../models/base.model';
 import { Review } from '../../review/entities/review.entity';
 import { User } from '../../user/entities/user.entity';
 
+
+
+/**
+ * From all indication the Page is the central entity in this application.
+ * It brings together the main content and the accompanying user interaction.
+*/
+
 @Entity('page')
 export class Page extends BaseModel {
   @Column({ nullable: false, type: 'text' })

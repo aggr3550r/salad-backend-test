@@ -1,13 +1,19 @@
-import { IsNumber, IsOptional, IsPositive } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  Max,
+} from 'class-validator';
 
 export class RatingDTO {
-  // ratings should not be open for modification from the outside
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  avg_rating?: number;
+  @Max(5.0)
+  avg_rating: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   @IsPositive()
   total_rating_amount?: number;

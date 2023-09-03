@@ -9,4 +9,7 @@ export class Staff extends UserBaseModel {
 
   @Column({ type: 'enum', enum: BloodType, nullable: false })
   blood_type: BloodType;
+
+  @Column({ type: 'boolean', nullable: false, default: true })
+  is_moderator: boolean;
 }
