@@ -27,7 +27,7 @@ export default class ReviewService implements IGenericAppService<Review> {
       log.error('createReview() error', error);
       throw new AppError(
         error?.message || SaladResponseMsg.FAILED,
-        error?.status || 400
+        error?.statusCode || 400
       );
     }
   }
