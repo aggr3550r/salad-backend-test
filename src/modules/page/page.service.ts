@@ -11,14 +11,15 @@ import { RatingDTO } from './dtos/rating.dto';
 import { PageOptionsDTO } from '../../paging/page-option.dto';
 import { PageDTO } from '../../paging/page.dto';
 import { PageMetaDTO } from '../../paging/page-meta.dto';
+import { IGenericAppService } from '../../interfaces/IGenericUserService';
 
 const log = logger.getLogger();
-export class PageService {
+export class PageService implements IGenericAppService<Page> {
   constructor(private pageRepository: Repository<Page>) {
     this.pageRepository = getRepository<Page>(Page);
   }
 
-  async create(data: CreatePageDTO) {
+  async create(data: CreatePageDTO): Promise<Page> {
     try {
       const options: FindOneOptions<Page> = {
         where: {
