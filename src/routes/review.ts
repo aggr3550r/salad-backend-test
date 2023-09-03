@@ -26,3 +26,5 @@ reviewRouter.addIsAuthenticatedPattern(
   '/:submitterId',
   reviewController.getAll.bind(reviewController)
 );
+
+export default reviewRouter.getExpressRouter();

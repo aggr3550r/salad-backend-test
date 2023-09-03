@@ -7,9 +7,12 @@ import logger from './utils/logger.util';
 import 'reflect-metadata';
 
 import connection from './database/connection';
-import AllExceptionsFilter from './filters/all-exceptions.filter';
+
 
 const dbConnect = connection.create();
+
+import routes from './routes';
+import AllExceptionsFilter from './filters/all-exceptions.filter';
 
 const app = express();
 
@@ -28,7 +31,8 @@ app.use(cors());
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
 
-// app.use('/api/v1', routes);
+app.use('/api/v1', routes);
+
 
 /**
  * Middleware that acts as an exception filter that captures and handles all uncaught exceptions emanating from the application at best.

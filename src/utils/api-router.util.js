@@ -16,26 +16,6 @@ export default class ApiRouter {
     this.router[method](pattern, authenticated, ...mw, make(controller));
   }
 
-  addIsAdminPattern(method, pattern, controller, ...mw) {
-    this.router[method](
-      pattern,
-      authenticated,
-      account('admin'),
-      ...mw,
-      make(controller)
-    );
-  }
-
-  addIsUserPattern(method, pattern, controller, ...mw) {
-    this.router[method](
-      pattern,
-      authenticated,
-      account('user'),
-      ...mw,
-      make(controller)
-    );
-  }
-
   use(mw) {
     this.router.use(mw);
   }
