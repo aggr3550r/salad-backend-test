@@ -14,7 +14,7 @@ export default class UserController {
 
       return new ResponseModel(
         HttpStatus.OK,
-        'User successfully updated',
+        'User successfully updated.',
         serviceResponse
       );
     } catch (error) {
