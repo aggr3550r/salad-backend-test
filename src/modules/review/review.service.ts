@@ -10,10 +10,15 @@ import { IGenericAppService } from '../../interfaces/IGenericUserService';
 import { PageOptionsDTO } from '../../paging/page-option.dto';
 import { PageDTO } from '../../paging/page.dto';
 import { PageMetaDTO } from '../../paging/page-meta.dto';
+import { PageService } from '../page/page.service';
+import { ResourceNotFoundException } from '../../exceptions/ResourceNotFound';
 
 const log = logger.getLogger();
 export default class ReviewService implements IGenericAppService<Review> {
-  constructor(private reviewRepository: Repository<Review>) {
+  constructor(
+    private reviewRepository: Repository<Review>,
+    private readonly pageService: PageService
+  ) {
     this.reviewRepository = getRepository<Review>(Review);
   }
 
@@ -21,6 +26,14 @@ export default class ReviewService implements IGenericAppService<Review> {
     try {
       const newReview = this.reviewRepository.create(data);
       newReview.submitterId = submitterId;
+      const pageExists = await this.pageService.findById(data.pageId);
+
+      if (!pageExists) {
+        throw new ResourceNotFoundException(
+          'Could not find a page with that id.'
+        );
+      }
+
       newReview.pageId = data.pageId;
       return await this.reviewRepository.save(newReview);
     } catch (error) {

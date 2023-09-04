@@ -31,11 +31,10 @@ export default class UserService implements IGenericAppService<User> {
       };
       const userAlreadyExists = await this.userRepository.findOne(options);
 
-      if (userAlreadyExists) {
+      if (userAlreadyExists)
         throw new UserAlreadyExistsException(
           'Username or Email already taken. Choose another.'
         );
-      }
 
       const newUser = this.userRepository.create(data);
       return await this.userRepository.save(newUser);

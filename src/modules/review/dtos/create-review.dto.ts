@@ -20,8 +20,4 @@ export class CreateReviewDTO {
   @IsNotEmpty()
   @IsString()
   pageId: string;
-
-  @IsNotEmpty()
-  @IsNumber()
-  rating: number;
 }

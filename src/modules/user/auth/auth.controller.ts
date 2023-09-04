@@ -44,6 +44,7 @@ export default class AuthController {
         SaladResponseMsg.SUCCESS,
         serviceResponse
       );
+
     } catch (error) {
       return new ResponseModel(
         error?.statusCode || HttpStatus.BAD_REQUEST,

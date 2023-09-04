@@ -4,7 +4,7 @@ import { BloodType } from '../../../enums/blood-type.enum';
 
 @Entity('staff')
 export class Staff extends UserBaseModel {
-  @Column({ type: 'text', default: '' })
+  @Column({ type: 'text', nullable: false })
   home_town: string;
 
   @Column({ type: 'enum', enum: BloodType, nullable: false })

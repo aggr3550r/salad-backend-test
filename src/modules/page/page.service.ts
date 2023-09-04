@@ -12,11 +12,19 @@ import { PageOptionsDTO } from '../../paging/page-option.dto';
 import { PageDTO } from '../../paging/page.dto';
 import { PageMetaDTO } from '../../paging/page-meta.dto';
 import { IGenericAppService } from '../../interfaces/IGenericUserService';
+import { Like } from './entites/like.entity';
+import { Rating } from './entites/rating.entity';
 
 const log = logger.getLogger();
 export class PageService implements IGenericAppService<Page> {
-  constructor(private pageRepository: Repository<Page>) {
+  constructor(
+    private pageRepository: Repository<Page>,
+    private likeRepository: Repository<Like>,
+    private ratingRepository: Repository<Rating>
+  ) {
     this.pageRepository = getRepository<Page>(Page);
+    this.likeRepository = getRepository<Like>(Like);
+    this.ratingRepository = getRepository<Rating>(Rating);
   }
 
   async create(data: CreatePageDTO): Promise<Page> {
@@ -140,12 +148,28 @@ export class PageService implements IGenericAppService<Page> {
     }
   }
 
-  async likePage(pageId: string): Promise<Page> {
+  async likePage(likerId: string, pageId: string): Promise<Page> {
     try {
       const page = await this.findById(pageId);
-      let likes = page.likes;
-      likes++;
-      return await this.update(pageId, { likes });
+      const alreadyLiked = await this.likeRepository.findOne({
+        where: {
+          pageId,
+          likerId,
+        },
+      });
+
+      if (alreadyLiked) {
+        throw new ResourceAlreadyExistsException(
+          'You have already liked this page.'
+        );
+      } else {
+        let likes = page.likes;
+        likes++;
+
+        const like = this.likeRepository.create({ likerId, pageId });
+        await this.likeRepository.save(like);
+        return await this.update(pageId, { likes });
+      }
     } catch (error) {
       log.error('likePage() error', error);
       throw new AppError(
@@ -168,21 +192,57 @@ export class PageService implements IGenericAppService<Page> {
     }
   }
 
-  async ratePage(pageId: string, rating: number) {
+  async ratePage(raterId: string, pageId: string, rating: number) {
     try {
       if (rating > 5) {
         throw new AppError('Cannot rate a page higher than 5', 400);
       }
 
       const page = await this.findById(pageId);
-      const { total_rating_amount, total_rated_times } = page;
+      const { avg_rating, total_rating_amount, total_rated_times } = page;
 
-      const newRatingData = this.getNewRatingStats(
-        { total_rated_times, total_rating_amount },
-        rating
-      );
+      const userHasRatedPageOnceBefore = await this.ratingRepository.findOne({
+        where: {
+          pageId,
+          raterId,
+        },
+      });
 
-      return await this.update(pageId, { ...newRatingData });
+      let newRatingData: RatingDTO;
+
+      /**
+       * If user has rated page before simply update the already existing rating - thereby eliminating double-rating
+       */
+      if (userHasRatedPageOnceBefore) {
+        newRatingData = this.getNewRatingStats(
+          {
+            avg_rating: userHasRatedPageOnceBefore.rating,
+            total_rated_times,
+            total_rating_amount,
+          },
+          rating,
+          false
+        );
+      } else {
+        newRatingData = this.getNewRatingStats(
+          {
+            avg_rating,
+            total_rated_times,
+            total_rating_amount,
+          },
+          rating
+        );
+
+        const newRating = this.ratingRepository.create({
+          raterId,
+          pageId,
+          rating,
+        });
+
+        await this.ratingRepository.save(newRating);
+
+        return await this.update(pageId, { ...newRatingData });
+      }
     } catch (error) {
       log.error('ratePage() error', error);
       throw new AppError(
@@ -199,18 +259,33 @@ export class PageService implements IGenericAppService<Page> {
    */
   private getNewRatingStats(
     ratingData: Partial<RatingDTO>,
-    newRating: number
+    newRating: number,
+    withIncrement: boolean = true
   ): RatingDTO {
-    const { total_rated_times, total_rating_amount } = ratingData;
+    const { avg_rating, total_rated_times, total_rating_amount } = ratingData;
+    let newTotalRatedTimes;
+    let newTotalRatingAmount;
+    let newAvgRating;
+    let newRatingStats = new RatingDTO();
 
-    const newTotalRatedTimes = total_rated_times + 1;
-    const newTotalRatingAmount = total_rating_amount + newRating;
-    const newAvgRating = newTotalRatingAmount / newTotalRatedTimes;
-    const newRatingStats: RatingDTO = {
-      avg_rating: newAvgRating,
-      total_rated_times: newTotalRatedTimes,
-      total_rating_amount: newTotalRatingAmount,
-    };
+    /**
+     * Basically, if we have a user rating a page they have rated before, we have to specify that this argument should be false at the point where we invoke getNewRatingStats()
+     * This will inform the private method that it should adjust its algorithm to prevent double-rating.
+     */
+    if (!withIncrement) {
+      (newTotalRatedTimes = total_rated_times),
+        (newTotalRatingAmount = total_rating_amount - avg_rating + newRating),
+        (newAvgRating = newTotalRatingAmount / total_rated_times);
+    } else {
+      newTotalRatedTimes = total_rated_times + 1;
+      newTotalRatingAmount = total_rating_amount + newRating;
+      newAvgRating = newTotalRatingAmount / newTotalRatedTimes;
+      newRatingStats = {
+        avg_rating: newAvgRating,
+        total_rated_times: newTotalRatedTimes,
+        total_rating_amount: newTotalRatingAmount,
+      };
+    }
 
     return newRatingStats;
   }

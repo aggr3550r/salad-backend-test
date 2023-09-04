@@ -4,7 +4,8 @@ import { User } from '../modules/user/entities/user.entity';
 import { PageDTO } from '../paging/page.dto';
 import { ResponseModel } from '../models/response.model';
 
-import logger from '../utils/logger.util';
+const { default: logger } = require('../utils/logger.util');
+const { Redirect } = require('../utils/redirect.util');
 
 /**
  * This code serves as a makeshift interceptor that allows us to manipulate the responses from our controllers before they are sent out.
@@ -14,10 +15,16 @@ import logger from '../utils/logger.util';
 module.exports =
   (controller: any) => async (request: Request, response: Response) => {
     try {
-      let data: ResponseModel<any> = await controller(request, response);
+      let data: ResponseModel<any> | typeof Redirect = await controller(
+        request,
+        response
+      );
 
       if (!data) {
         return;
+      }
+      if (data instanceof Redirect) {
+        return response.redirect(data.route);
       }
 
       if (data instanceof ResponseModel && data.data instanceof User) {
@@ -32,7 +39,8 @@ module.exports =
         });
       } else if (
         data instanceof ResponseModel &&
-        data.data instanceof PageDTO
+        data.data instanceof PageDTO &&
+        data.data.data instanceof User
       ) {
         const pageData = data.data as PageDTO<User>;
         let sanitizedUser = pageData.data;

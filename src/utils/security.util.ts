@@ -12,8 +12,8 @@ const log = logger.getLogger();
 
 export default class SecurityUtil {
   static async generateTokenWithSecret(user: User): Promise<string> {
-    const { id, role } = user;
-    return JWT.sign({ id, role }, process.env.JWT_SECRET, {
+    const { id } = user;
+    return JWT.sign({ id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
   }

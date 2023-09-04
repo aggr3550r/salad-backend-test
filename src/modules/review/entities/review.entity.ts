@@ -5,7 +5,7 @@ import { Page } from '../../page/entites/page.entity';
 
 @Entity('review')
 export class Review extends BaseModel {
-  @Column({ type: 'text', default: '' })
+  @Column({ nullable: false })
   body: string;
 
   @ManyToOne(() => User, (owner) => owner.reviews)
@@ -24,7 +24,4 @@ export class Review extends BaseModel {
 
   @Column({ type: 'text', default: '' })
   summary: string;
-
-  @Column({ type: 'float', nullable: false, default: 0.0 })
-  rating: number;
 }

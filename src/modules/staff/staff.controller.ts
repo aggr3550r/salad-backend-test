@@ -20,7 +20,7 @@ export class StaffController {
       );
     } catch (error) {
       log.error('createStaff() error', error);
-      throw new ResponseModel(
+      return new ResponseModel(
         error?.statusCode || 400,
         error?.message || SaladResponseMsg.FAILED,
         null
@@ -42,7 +42,7 @@ export class StaffController {
       );
     } catch (error) {
       log.error('updateStaff() error', error);
-      throw new ResponseModel(
+      return new ResponseModel(
         error?.statusCode || 400,
         error?.message || SaladResponseMsg.FAILED,
         null
@@ -62,7 +62,7 @@ export class StaffController {
       );
     } catch (error) {
       log.error('getAllStaff() error', error);
-      throw new ResponseModel(
+      return new ResponseModel(
         error?.statusCode || 400,
         error?.message || SaladResponseMsg.FAILED,
         null

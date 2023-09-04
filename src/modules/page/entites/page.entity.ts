@@ -12,7 +12,7 @@ import { User } from '../../user/entities/user.entity';
 
 @Entity('page')
 export class Page extends BaseModel {
-  @Column({ nullable: false, type: 'text' })
+  @Column({ nullable: false })
   @Index({ unique: true })
   name: string;
 

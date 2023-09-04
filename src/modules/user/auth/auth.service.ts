@@ -101,6 +101,5 @@ export default class AuthService {
         error?.statusCode || 400
       );
     }
-    ``;
   }
 }

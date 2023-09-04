@@ -18,6 +18,8 @@ import ReviewController from '../modules/review/review.controller';
 import { StaffController } from '../modules/staff/staff.controller';
 import AuthController from '../modules/user/auth/auth.controller';
 import AuthService from '../modules/user/auth/auth.service';
+import { Like } from '../modules/page/entites/like.entity';
+import { Rating } from '../modules/page/entites/rating.entity';
 
 /**
  * @author aggr3550r
@@ -29,12 +31,21 @@ const userRepository: Repository<User> = getRepository<User>(User);
 const pageRepository: Repository<Page> = getRepository<Page>(Page);
 const reviewRepository: Repository<Review> = getRepository<Review>(Review);
 const staffRepository: Repository<Staff> = getRepository<Staff>(Staff);
+const likeRepository: Repository<Like> = getRepository<Like>(Like);
+const ratingRepository: Repository<Rating> = getRepository<Rating>(Rating);
 
 /* SERVICES */
 
 const userService: UserService = new UserService(userRepository);
-const pageService: PageService = new PageService(pageRepository);
-const reviewService: ReviewService = new ReviewService(reviewRepository);
+const pageService: PageService = new PageService(
+  pageRepository,
+  likeRepository,
+  ratingRepository
+);
+const reviewService: ReviewService = new ReviewService(
+  reviewRepository,
+  pageService
+);
 const staffService: StaffService = new StaffService(staffRepository);
 const authService: AuthService = new AuthService(userService);
 

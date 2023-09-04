@@ -6,8 +6,6 @@ export class UserBaseModel extends BaseModel {
   @Column({ nullable: false, type: 'text' })
   name: string;
 
-  @Column({ type: 'boolean', nullable: false, default: false })
-  is_moderator: boolean;
 
   @Column({ nullable: false })
   age: number;

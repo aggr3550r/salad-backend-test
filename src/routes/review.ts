@@ -17,7 +17,7 @@ reviewRouter.addIsAuthenticatedPattern(
 
 reviewRouter.addIsAuthenticatedPattern(
   HttpMethod.DELETE,
-  '/',
+  '/:reviewId',
   reviewController.deleteReview.bind(reviewController)
 );
 

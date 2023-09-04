@@ -116,9 +116,14 @@ export class PageController {
   async ratePage(request: any) {
     try {
       const { pageId } = request.params;
+      const { id: raterId } = request.auth;
       const data = request.body;
 
-      const serviceResponse = await this.pageService.ratePage(pageId, data);
+      const serviceResponse = await this.pageService.ratePage(
+        raterId,
+        pageId,
+        data.rating
+      );
 
       return new ResponseModel(
         HttpStatus.OK,
@@ -139,7 +144,8 @@ export class PageController {
   async likePage(request: any) {
     try {
       const { pageId } = request.params;
-      const serviceResponse = await this.pageService.likePage(pageId);
+      const { id: likerId } = request.auth;
+      const serviceResponse = await this.pageService.likePage(likerId, pageId);
 
       return new ResponseModel(
         HttpStatus.OK,

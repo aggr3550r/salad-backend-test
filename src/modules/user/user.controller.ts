@@ -32,6 +32,14 @@ export default class UserController {
 
       const serviceResponse = await this.userService.delete(userId);
 
+      if (!serviceResponse) {
+        return new ResponseModel(
+          HttpStatus.BAD_REQUEST,
+          SaladResponseMsg.FAILED,
+          serviceResponse
+        );
+      }
+
       return new ResponseModel(HttpStatus.OK, 'User successfully deleted.', {
         userId,
         serviceResponse,

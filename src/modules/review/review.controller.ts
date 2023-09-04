@@ -58,6 +58,14 @@ export default class ReviewController {
 
       const serviceResponse = await this.reviewService.delete(reviewId);
 
+      if (!serviceResponse) {
+        return new ResponseModel(
+          HttpStatus.BAD_REQUEST,
+          'Error deleting review..',
+          null
+        );
+      }
+
       return new ResponseModel(HttpStatus.OK, 'Review successfully deleted.', {
         reviewId,
         serviceResponse,

@@ -14,6 +14,6 @@ router.use('/auth', authRouter);
 router.use('/users', userRouter);
 router.use('/reviews', reviewRouter);
 router.use('/pages', pageRouter);
-router.use('staff', staffRouter);
+router.use('/staff', staffRouter);
 
 export default router;

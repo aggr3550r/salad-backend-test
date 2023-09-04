@@ -11,7 +11,7 @@ staffRouter.addPattern(
 
 staffRouter.addIsAuthenticatedPattern(
   HttpMethod.PATCH,
-  '/',
+  '/:staffId',
   staffController.updateStaff.bind(staffController)
 );
 
