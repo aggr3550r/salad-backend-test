@@ -72,3 +72,9 @@ As a result of this, if your application is to start without any hitches, the **
 changed from _localhost_ to _host.docker.internal_.
 
 That should do it, your server is up and ready for use @ **http://host.docker.internal:3000/api/v1** ! 
+
+
+
+## Documentation
+
+Here is a link to the clear and concise API documentation published via Postman: **https://documenter.getpostman.com/view/23331716/2s9Y5eLype**
