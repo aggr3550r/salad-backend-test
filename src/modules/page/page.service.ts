@@ -254,8 +254,15 @@ export class PageService implements IGenericAppService<Page> {
 
   /**
    * This is a helper method that takes the old rating stats as well as the new rating being added to the page and returns the new rating stats relative to the most recent update.
+   *
+   * It also takes a technically optional or rather required parameter of boolean type which defaults to false.
+   *
+   * The reason for this bit of craft is to prevent users from being able to inflate ratings by rating the same page multiple times and having their ratings accumulate.
+   *
+   * The withIncrement flag is how the rest of this service code informs this routine as to whether the said user has rated the same page more than once before so that it can do its job precisely.
    * @param ratingData
    * @param newRating
+   * @param withIncrement
    */
   private getNewRatingStats(
     ratingData: Partial<RatingDTO>,
