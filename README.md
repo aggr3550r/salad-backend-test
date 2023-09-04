@@ -95,7 +95,7 @@ Given the provision of TypeScript, I have gone ahead to adopt a strong OOP style
 #### Exception Handling
 I have also made sure that the exception handling is exceptional indeed by not only wrapping the entire application in try-catch expressions but also using TypeScript to define exceptions robustly and skillfully choosing where to throw exceptions and where to simply return the contents of exceptions thrown in order for our application to function as reliably as possible and handle errors and exceptions with a minimum of fuss.
 
-As we can see when we look at our application, we have established the concept of our custom _App Error_ which is only used at the service level to communicate exceptions emanating during the execution of service code to external consumers of the service code without deciding exactly how the application renders this exceptions to the the client. 
+As we can see when we look at our application, we have established the concept of our custom _AppError_ which is only used at the service level to communicate exceptions emanating during the execution of service code to external consumers of the service code without deciding exactly how the application renders this exceptions to the final client. 
 
 At the controller level, we have our custom _ResponseModel_ serving as a central interface for communicating information about our application (exceptions and other occurences alike) to the outside world in a consistent manner. This is useful because it serves the client well if it knows exactly where to look for vitals such as _statusCode_, _message_ and _data_ in each response it receives from our application.
 
