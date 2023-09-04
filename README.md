@@ -24,7 +24,7 @@ JWT_COOKIE_EXPIRES_IN=24
 With that out of the way, there are two possible paths along which to proceed enumerated below:
 ### * Local Server
 ### * Dockerfile
-
+-----------------------------------------------------------------------------------------------
 #### Local Server 
 To run the app on your local machine take the following steps:
 - Step One:
@@ -33,6 +33,8 @@ To run the app on your local machine take the following steps:
 - Step Two:
   While you are in the root directory of the project, run the following in your terminal in succession:
  ```npm install```
+
+
  ```npm run start```
 
 Your server should have started running locally on port 8086 or any other port specified in you _.env_ at this point. You can access the resources at @ **http://localhost:8086/api/v1**
