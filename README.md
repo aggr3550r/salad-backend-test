@@ -32,8 +32,8 @@ To run the app on your local machine take the following steps:
 
 - Step Two:
   While you are in the root directory of the project, run the following in your terminal in succession:
+  
  ```npm install```
-
 
  ```npm run start```
 
@@ -66,4 +66,4 @@ If you are to start the application using docker, your local .env will be mounte
 As a result of this, if your application is to start without any hitches, the **PG_HOST** environment variable in your _.env_ file should be
 changed from _localhost_ to _host.docker.internal_.
 
-That should do it, your server is up and ready for use @ ***http://host.docker.internal:3000/api/v1** ! 
+That should do it, your server is up and ready for use @ **http://host.docker.internal:3000/api/v1** ! 
