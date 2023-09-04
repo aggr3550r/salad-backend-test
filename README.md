@@ -32,10 +32,15 @@ To run the app on your local machine take the following steps:
 
 - Step Two:
   While you are in the root directory of the project, run the following in your terminal in succession:
-  
- ```npm install```
 
- ```npm run start```
+  
+ ```
+ npm install
+```
+
+ ```
+ npm run start
+```
 
 Your server should have started running locally on port 8086 or any other port specified in you _.env_ at this point. You can access the resources at @ **http://localhost:8086/api/v1**
 
