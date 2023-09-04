@@ -78,3 +78,31 @@ That should do it, your server is up and ready for use @ **http://host.docker.in
 ## Documentation
 
 Here is a link to the clear and concise API documentation published via Postman: **https://documenter.getpostman.com/view/23331716/2s9Y5eLype**
+
+#### Preliminary
+The source code itself contains some documentation that gives the reader insight into my thought process regarding some decisions taken and solutions adopted however that might not be enough so I will compliment it with some empha
+sis here.
+
+#### Scope
+I went ahead to implement some basic functionality using the provided API collection @ **https://graphql.anilist.co**
+as a guide. I chose not to implement all of the fields in the API documentation referenced because I thought that it contained a lot of data that would make unnecessarily convoluted the scope of our work as far as this test is concerned.
+
+The aim of the code is to demonstrate technical prowess with the technologies required which I believe is what I have done extensively. 
+
+#### Programming Paradigm
+Given the provision of TypeScript, I have gone ahead to adopt a strong OOP style of programming to implement functionalities so as to give us the perfect blend of flexibility and structure to work with.
+
+#### Exception Handling
+I have also made sure that the exception handling is exceptional indeed by not only wrapping the entire application in try-catch expressions but also using TypeScript to define exceptions robustly and skillfully choosing where to throw exceptions and where to simply return the contents of exceptions thrown in order for our application to function as reliably as possible and handle errors and exceptions with a minimum of fuss.
+
+As we can see when we look at our application, we have established the concept of our custom _App Error_ which is only used at the service level to communicate exceptions emanating during the execution of service code to external consumers of the service code without deciding exactly how the application renders this exceptions to the the client. 
+
+At the controller level, we have our custom _ResponseModel_ serving as a central interface for communicating information about our application (exceptions and other occurences alike) to the outside world in a consistent manner. This is useful because it serves the client well if it knows exactly where to look for vitals such as _statusCode_, _message_ and _data_ in each response it receives from our application.
+
+
+#### Database
+I applied some database normalization techniques when creating the Page model and its surrounding data -  particularly Likes and Rating. I did this to make sure that I eliminate duplication of business resources even at the data definition level.
+
+At the database level, we try to use the concept of inheritance to reduce the duplication of our code when defining entities that are similar.
+
+
